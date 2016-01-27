@@ -33,10 +33,9 @@ void Figure::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) cons
 	target.draw(figure, states);
 }
 
-void Figure::updateCurrent(sf::Time dt, CommandQueue& commands)
+/*void Figure::updateCurrent(sf::Time dt)
 {
-	//
-}
+}*/
 
 
 sf::FloatRect Figure::getBoundingRect() const

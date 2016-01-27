@@ -28,20 +28,20 @@ SceneNode::Ptr SceneNode::detachChild(const SceneNode& node)
 	return result;
 }
 
-void SceneNode::update(sf::Time dt, CommandQueue& commands)
+void SceneNode::update(sf::Time dt)
 {
-	updateCurrent(dt, commands);
-	updateChildren(dt, commands);
+	updateCurrent(dt);
+	updateChildren(dt);
 }
 
-void SceneNode::updateCurrent(sf::Time, CommandQueue&)
+void SceneNode::updateCurrent(sf::Time dt)
 {
 }
 
-void SceneNode::updateChildren(sf::Time dt, CommandQueue& commands)
+void SceneNode::updateChildren(sf::Time dt)
 {
 	for (Ptr& child : children)
-		child->update(dt, commands);
+		child->update(dt);
 }
 
 void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -112,7 +112,7 @@ sf::FloatRect SceneNode::getBoundingRect() const
 	return sf::FloatRect();
 }
 
-void SceneNode::checkNodeCollision(sf::Vector2f position)
+bool SceneNode::checkNodeCollision(sf::Vector2f position)
 {
 	for (int i = children.size() -1; i >= 0; i--)
 	{
@@ -122,13 +122,14 @@ void SceneNode::checkNodeCollision(sf::Vector2f position)
 			for (int j = children.size() - 1; j >= 0; j--)
 				if (j != i)
 					children[j]->selected = false;
-			return;
+			return true;
 		}
 		else
 		{
 			children[i]->selected = false;
 		}
 	}
+	return false;
 }
 
 void SceneNode::removeFigure()
@@ -157,4 +158,13 @@ bool collision(const SceneNode& lhs, const SceneNode& rhs)
 bool SceneNode::isSelected() const
 {
 	return selected;
+}
+
+SceneNode* SceneNode::getSelectedFigure()
+{
+	for (const Ptr& child : children)
+		if (child->isSelected())
+			return child.get();
+
+	std::for_each(children.begin(), children.end(), std::mem_fn(&SceneNode::getSelectedFigure));
 }

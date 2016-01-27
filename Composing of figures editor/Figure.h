@@ -16,7 +16,7 @@ struct Figure : public SceneNode
 	Figure(Type type);
 
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
-	virtual void updateCurrent(sf::Time dt, CommandQueue& commands) override;
+//	virtual void updateCurrent(sf::Time dt) override;
 	//virtual unsigned int getCategory() const override;
 	virtual sf::FloatRect getBoundingRect() const override;
 

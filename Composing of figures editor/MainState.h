@@ -3,6 +3,7 @@
 #include "State.h"
 #include "Container.h"
 #include "SceneNode.h"
+#include "Figure.h"
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -20,5 +21,12 @@ struct MainState : public State
 		SceneNode scene_graph;
 
 		static const int workspace_border;
+
+		//גûםוסעט ג מעהוכüםי handler הכÿ sceneNode
+		bool is_pressed;
+		Figure* selected_figure;
+		sf::Vector2f figure_position;
+		sf::Vector2f mouse_position;
+		sf::Vector2f delta;
 };
 
