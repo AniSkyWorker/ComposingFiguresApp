@@ -114,22 +114,34 @@ sf::FloatRect SceneNode::getBoundingRect() const
 
 bool SceneNode::checkNodeCollision(sf::Vector2f position)
 {
-	for (int i = children.size() -1; i >= 0; i--)
+	const auto selectedItem = find_if(children.rbegin(), children.rend(), [&](auto & child) {
+		return (child->getBoundingRect().contains(position));
+	});
+
+	for (auto it = children.rbegin(); it != children.rend(); ++it)
 	{
-		if (children[i]->getBoundingRect().contains(position))
+		(*it)->selected = (it == selectedItem);
+	}
+
+	return selectedItem != children.rend();
+
+	/*
+	for (auto it = children.rbegin(); it != children.rend(); ++it)
+	{
+		auto & child = **it;
+		child.selected = false;
+		if (child.getBoundingRect().contains(position))
 		{
-			children[i]->selected = true;
-			for (int j = children.size() - 1; j >= 0; j--)
-				if (j != i)
-					children[j]->selected = false;
+			child.selected = true;
+			for (auto clearingIt = children.begin(); addressof(*clearingIt) != addressof(*it); ++clearingIt)
+			{
+				(*clearingIt)->selected = false;
+			}
 			return true;
-		}
-		else
-		{
-			children[i]->selected = false;
 		}
 	}
 	return false;
+	*/
 }
 
 void SceneNode::removeFigure()
