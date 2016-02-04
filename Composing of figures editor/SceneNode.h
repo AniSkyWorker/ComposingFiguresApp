@@ -16,7 +16,7 @@ struct SceneNode : public sf::Transformable, public sf::Drawable, private sf::No
 
 	SceneNode(Category::Type category = Category::None);
 
-	void attachChild(Ptr child);
+	void attachChild(Ptr&& child);
 	Ptr	detachChild(const SceneNode& node);
 
 	void update(sf::Time dt);
@@ -27,7 +27,7 @@ struct SceneNode : public sf::Transformable, public sf::Drawable, private sf::No
 	void callCommand(const Command& command, sf::Time dt);
 	virtual unsigned int getCategory() const;
 
-	bool checkNodeCollision(sf::Vector2f position);
+	virtual bool checkNodeCollision(sf::Vector2f position);
 	void removeFigure();
 	virtual sf::FloatRect getBoundingRect() const;
 	virtual bool isMarkedForRemoval() const;

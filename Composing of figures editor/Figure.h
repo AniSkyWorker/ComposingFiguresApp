@@ -2,6 +2,7 @@
 
 #include "Command.h"
 #include "SceneNode.h"
+#include "FrameNode.h"
 
 struct Figure : public SceneNode
 {
@@ -16,7 +17,7 @@ struct Figure : public SceneNode
 	Figure(Type type);
 
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
-//	virtual void updateCurrent(sf::Time dt) override;
+	virtual void updateCurrent(sf::Time dt) override;
 	//virtual unsigned int getCategory() const override;
 	virtual sf::FloatRect getBoundingRect() const override;
 
@@ -24,4 +25,5 @@ struct Figure : public SceneNode
 
 	Type type;
 	sf::CircleShape figure;
+	bool hasFrame;
 };

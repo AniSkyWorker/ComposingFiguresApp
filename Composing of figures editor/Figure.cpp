@@ -10,6 +10,7 @@
 
 Figure::Figure(Type type)
 	:type(type)
+	,hasFrame(false)
 {
 
 	switch (type)
@@ -33,9 +34,15 @@ void Figure::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) cons
 	target.draw(figure, states);
 }
 
-/*void Figure::updateCurrent(sf::Time dt)
+void Figure::updateCurrent(sf::Time dt)
 {
-}*/
+	figure.setOrigin(figure.getLocalBounds().width / 2.f, figure.getLocalBounds().height / 2.f);
+	if (hasFrame && !isSelected())
+	{
+		removeFigure();
+		hasFrame = false;
+	}
+}
 
 
 sf::FloatRect Figure::getBoundingRect() const

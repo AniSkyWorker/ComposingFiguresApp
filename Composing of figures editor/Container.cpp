@@ -30,9 +30,7 @@ namespace GUI
 		for (Component::Ptr& child : children)
 		{
 			if (child->getBoundingRect().contains(sf::Vector2f(sf::Mouse::getPosition(window))))
-			{
 				child->select();
-			}
 			else
 				child->deselect();
 		}
@@ -42,26 +40,6 @@ namespace GUI
 				if (child->isSelected())
 					child->activate();
 		}
-		/*if (hasSelection() && children[selected_child]->isActive())
-		{
-			children[selected_child]->handleEvent(event);
-		}
-		else if (event.type == sf::Event::KeyReleased)
-		{
-			if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
-			{
-				selectPrevious();
-			}
-			else if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
-			{
-				selectNext();
-			}
-			else if (event.key.code == sf::Keyboard::Return)
-			{
-				if (hasSelection())
-					children[selected_child]->activate();
-			}
-		}*/
 	}
 
 	void Container::draw(sf::RenderTarget& target, sf::RenderStates states) const

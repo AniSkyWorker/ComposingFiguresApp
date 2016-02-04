@@ -18,12 +18,8 @@ Application::Application()
 	window.setKeyRepeatEnabled(false);
 	window.setVerticalSyncEnabled(true);
 
+	loadTextures();
 	fonts.load(Fonts::Main, "Media/Sansation.ttf");
-	textures.load(Textures::FirstPage, "Media/Textures/1.png");
-	textures.load(Textures::TitleScreen, "Media/Textures/TitleScreen.jpg");
-	textures.load(Textures::ButtonNormal, "Media/Textures/Button.png");
-	textures.load(Textures::ButtonPressed, "Media/Textures/Button.png");
-	textures.load(Textures::ButtonSelected, "Media/Textures/Button-selected.png");
 
 	statistics_text.setFont(fonts.get(Fonts::Main));
 	statistics_text.setPosition(5.f, 5.f);
@@ -31,6 +27,15 @@ Application::Application()
 
 	registerStates();
 	state_stack.pushState(States::title);
+}
+
+void Application::loadTextures()
+{
+	textures.load(Textures::FirstPage, "Media/Textures/1.png");
+	textures.load(Textures::TitleScreen, "Media/Textures/TitleScreen.jpg");
+	textures.load(Textures::ButtonNormal, "Media/Textures/Button.png");
+	textures.load(Textures::ButtonPressed, "Media/Textures/Button.png");
+	textures.load(Textures::ButtonSelected, "Media/Textures/Button-selected.png");
 }
 
 void Application::run()

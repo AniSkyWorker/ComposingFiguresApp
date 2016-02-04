@@ -19,6 +19,8 @@ struct Application
 
 	void registerStates();
 
+	void loadTextures();
+
 	sf::RenderWindow window;
 
 	sf::Text statistics_text;

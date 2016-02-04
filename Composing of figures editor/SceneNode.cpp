@@ -11,7 +11,7 @@ SceneNode::SceneNode(Category::Type category)
 {
 }
 
-void SceneNode::attachChild(Ptr child)
+void SceneNode::attachChild(Ptr&& child)
 {
 	child->parent = this;
 	children.push_back(std::move(child));
@@ -26,6 +26,7 @@ SceneNode::Ptr SceneNode::detachChild(const SceneNode& node)
 	result->parent = nullptr;
 	children.erase(found);
 	return result;
+	return nullptr;
 }
 
 void SceneNode::update(sf::Time dt)
@@ -51,8 +52,8 @@ void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	drawCurrent(target, states);
 	drawChildren(target, states);
 
-	if(isSelected())
-		drawBoundingRect(target, states);
+	//if(isSelected())
+	//	drawBoundingRect(target, states);
 }
 
 void SceneNode::drawCurrent(sf::RenderTarget&, sf::RenderStates) const
@@ -124,24 +125,6 @@ bool SceneNode::checkNodeCollision(sf::Vector2f position)
 	}
 
 	return selectedItem != children.rend();
-
-	/*
-	for (auto it = children.rbegin(); it != children.rend(); ++it)
-	{
-		auto & child = **it;
-		child.selected = false;
-		if (child.getBoundingRect().contains(position))
-		{
-			child.selected = true;
-			for (auto clearingIt = children.begin(); addressof(*clearingIt) != addressof(*it); ++clearingIt)
-			{
-				(*clearingIt)->selected = false;
-			}
-			return true;
-		}
-	}
-	return false;
-	*/
 }
 
 void SceneNode::removeFigure()
@@ -179,4 +162,6 @@ SceneNode* SceneNode::getSelectedFigure()
 			return child.get();
 
 	std::for_each(children.begin(), children.end(), std::mem_fn(&SceneNode::getSelectedFigure));
+	
+	return nullptr;
 }
